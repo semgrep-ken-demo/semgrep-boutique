@@ -15,7 +15,7 @@
 # Define a default value so it's not empty if the builder fails to provide it
 ARG BUILDPLATFORM=linux/amd64
 
-FROM --platform=$BUILDPLATFORM node:20.20.1-alpine@sha256:b88333c42c23fbd91596ebd7fd10de239cedab9617de04142dde7315e3bc0afa AS builder
+FROM --platform=$BUILDPLATFORM node:22.23.4-alpine AS builder
 
 # Some packages (e.g. @google-cloud/profiler) require additional
 # deps for post-install scripts
@@ -32,7 +32,7 @@ RUN npm install --only=production
 
 FROM alpine:3.23.3@sha256:25109184c71bdad752c8312a8623239686a9a2071e8825f20acb8f2198c3f659
 
-RUN apk add --no-cache nodejs
+RUN apk add --no-cache nodejs brotli-libs
 
 WORKDIR /usr/src/app
 
